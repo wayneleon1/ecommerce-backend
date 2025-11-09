@@ -4,7 +4,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { cache } from "./services/cache";
-import { generalLimiter } from "./middleware/rateLimiter";
+import { generalLimiter } from "./middleware/rateLimiter.middleware";
 import { initializeDatabase } from "./db/init";
 
 dotenv.config();
