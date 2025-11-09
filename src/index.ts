@@ -4,6 +4,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { initDB } from "./db/init";
+import { cache } from "./services/cache";
 
 dotenv.config();
 
@@ -51,7 +52,11 @@ app.use(
 // Start server
 const startServer = async () => {
   try {
+    // Connect to DB
     await initDB();
+
+    // Connect to Redis
+    await cache.connect();
 
     app.listen(PORT, () => {
       console.log(`🚀 Server is running on port ${PORT}`);
