@@ -19,7 +19,7 @@ export const sendSuccess = <T>(
 export const sendError = (
   res: Response,
   message: string,
-  errors?: string[],
+  errors?: string[] | null,
   statusCode: number = 400
 ): Response => {
   const response: BaseResponse = {
