@@ -3,8 +3,9 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import { initDB } from "./db/init";
 import { cache } from "./services/cache";
+import { generalLimiter } from "./middleware/rateLimiter";
+import { initializeDatabase } from "./db/init";
 
 dotenv.config();
 
@@ -17,6 +18,9 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Rate limiting
+app.use(generalLimiter);
 
 // Health check
 app.get("/health", (req, res) => {
@@ -52,25 +56,44 @@ app.use(
 // Start server
 const startServer = async () => {
   try {
-    // Connect to DB
-    await initDB();
+    // Initialize database connection
+    const dbConnected = await initializeDatabase();
+    if (!dbConnected) {
+      throw new Error("Database connection failed");
+    }
 
     // Connect to Redis
-    await cache.connect();
+    try {
+      console.log("🔌 Connecting to Redis...");
+      await cache.connect();
+      console.log("✅ Redis connected successfully");
+    } catch (redisError) {
+      console.warn("⚠️  Redis connection failed - continuing without cache");
+    }
 
     app.listen(PORT, () => {
+      console.log("\n🎉 Server started successfully!");
+      console.log("================================");
       console.log(`🚀 Server is running on port ${PORT}`);
       console.log(`📚 API Documentation: http://localhost:${PORT}/api-docs`);
       console.log(`🏥 Health check: http://localhost:${PORT}/health`);
-      console.log(
-        `Drizzle Studio available at http://localhost:${PORT}/drizzle`
-      );
     });
   } catch (error) {
     console.error("Failed to start server:", error);
     process.exit(1);
   }
 };
+
+// Graceful shutdown
+const gracefulShutdown = async () => {
+  console.log("\n🛑 Shutting down gracefully...");
+
+  // Close database connection
+  process.exit(0);
+};
+
+process.on("SIGTERM", gracefulShutdown);
+process.on("SIGINT", gracefulShutdown);
 
 startServer();
 

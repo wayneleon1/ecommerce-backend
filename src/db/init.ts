@@ -1,17 +1,17 @@
-import { drizzle } from "drizzle-orm/postgres-js";
-import { migrate } from "drizzle-orm/postgres-js/migrator";
-import postgres from "postgres";
+import { db } from ".";
+import { sql } from "drizzle-orm";
 
-export const initDB = async () => {
-  const client = postgres(process.env.DATABASE_URL!, { max: 1 });
-  const db = drizzle(client);
-
+export const initializeDatabase = async (): Promise<boolean> => {
   try {
-    await migrate(db, { migrationsFolder: "./drizzle" });
-    console.log("Database migrated successfully");
+    console.log("🔌 Connecting to database...");
+
+    // Test database connection
+    await db.execute(sql`SELECT 1`);
+
+    console.log("✅ Database connected successfully");
+    return true;
   } catch (error) {
-    console.log("Migration error, pushing schema instead...");
-  } finally {
-    await client.end();
+    console.error("❌ Database connection failed:", error);
+    return false;
   }
 };
