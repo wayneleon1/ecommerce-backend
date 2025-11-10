@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import { cache } from "./services/cache";
 import { generalLimiter } from "./middleware/rateLimiter.middleware";
 import { initializeDatabase } from "./db/init";
+import authRoutes from "./routes/auth.routes";
 
 dotenv.config();
 
@@ -26,6 +27,9 @@ app.use(generalLimiter);
 app.get("/health", (req, res) => {
   res.json({ status: "OK", timestamp: new Date().toISOString() });
 });
+
+// Routes
+app.use("/auth", authRoutes);
 
 // 404 handler
 app.use((req, res) => {
