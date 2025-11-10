@@ -3,6 +3,8 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./config/swagger";
 import { cache } from "./services/cache";
 import { generalLimiter } from "./middleware/rateLimiter.middleware";
 import { initializeDatabase } from "./db/init";
@@ -24,6 +26,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Rate limiting
 app.use(generalLimiter);
+
+// Swagger Documentation
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Health check
 app.get("/health", (req, res) => {
