@@ -8,6 +8,7 @@ import { generalLimiter } from "./middleware/rateLimiter.middleware";
 import { initializeDatabase } from "./db/init";
 import authRoutes from "./routes/auth.routes";
 import productRoutes from "./routes/product.routes";
+import orderRoutes from "./routes/order.routes";
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.get("/health", (req, res) => {
 // Routes
 app.use("/auth", authRoutes);
 app.use("/products", productRoutes);
+app.use("/orders", orderRoutes);
 
 // 404 handler
 app.use((req, res) => {
