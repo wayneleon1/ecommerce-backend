@@ -24,7 +24,7 @@ const options = {
         description: "Development server",
       },
       {
-        url: "https://api.ecommerce.com",
+        url: "https://e-commerce-backend-xpsc.onrender.com",
         description: "Production server",
       },
     ],

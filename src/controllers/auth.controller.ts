@@ -98,7 +98,7 @@ export const login = async (req: Request, res: Response) => {
     const token = jwt.sign(
       { userId: user.id, username: user.username, role: user.role },
       process.env.JWT_SECRET!,
-      { expiresIn: process.env.JWT_EXPIRES_IN ?? "7d" }
+      { expiresIn: "7d" }
     );
 
     return sendSuccess(res, "Login successful", {

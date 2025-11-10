@@ -39,6 +39,9 @@ app.get("/health", (req, res) => {
 app.use("/auth", authRoutes);
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
+app.get("/", (req, res) => {
+  res.send("Welcome to the E-commerce API! Server is running 🚀");
+});
 
 // 404 handler
 app.use((req, res) => {
