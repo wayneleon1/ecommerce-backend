@@ -7,6 +7,7 @@ import { cache } from "./services/cache";
 import { generalLimiter } from "./middleware/rateLimiter.middleware";
 import { initializeDatabase } from "./db/init";
 import authRoutes from "./routes/auth.routes";
+import productRoutes from "./routes/product.routes";
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.get("/health", (req, res) => {
 
 // Routes
 app.use("/auth", authRoutes);
+app.use("/products", productRoutes);
 
 // 404 handler
 app.use((req, res) => {

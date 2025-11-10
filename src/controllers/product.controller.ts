@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { db } from "../db";
-import { products, users } from "../db/schema";
-import { eq, ilike, and, sql } from "drizzle-orm";
+import { products } from "../db/schema";
+import { eq, ilike, sql } from "drizzle-orm";
 import { AuthRequest } from "../types";
 import { sendSuccess, sendError, sendPaginated } from "../utils/response";
 import { cache } from "../services/cache";
