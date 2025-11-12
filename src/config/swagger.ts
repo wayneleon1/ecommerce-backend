@@ -2,6 +2,8 @@ import swaggerJsdoc from "swagger-jsdoc";
 import { authSwaggerDocs } from "../docs/auth.swagger";
 import { productSwaggerDocs } from "../docs/product.swagger";
 import { orderSwaggerDocs } from "../docs/order.swagger";
+import dotenv from "dotenv";
+dotenv.config();
 
 const isProd =
   (process.env.NODE_ENV || "").trim().toLowerCase() === "production";
