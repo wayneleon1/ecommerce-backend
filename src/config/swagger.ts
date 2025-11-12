@@ -3,6 +3,23 @@ import { authSwaggerDocs } from "../docs/auth.swagger";
 import { productSwaggerDocs } from "../docs/product.swagger";
 import { orderSwaggerDocs } from "../docs/order.swagger";
 
+const isProd =
+  (process.env.NODE_ENV || "").trim().toLowerCase() === "production";
+
+const servers = isProd
+  ? [
+      {
+        url: "https://e-commerce-backend-xpsc.onrender.com",
+        description: "Production server",
+      },
+    ]
+  : [
+      {
+        url: "http://localhost:3000",
+        description: "Development server",
+      },
+    ];
+
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -18,16 +35,7 @@ const options = {
         url: "https://github.com/wayneleon1/",
       },
     },
-    servers: [
-      {
-        url: "http://localhost:3000",
-        description: "Development server",
-      },
-      {
-        url: "https://e-commerce-backend-xpsc.onrender.com",
-        description: "Production server",
-      },
-    ],
+    servers,
     components: {
       securitySchemes: {
         bearerAuth: {

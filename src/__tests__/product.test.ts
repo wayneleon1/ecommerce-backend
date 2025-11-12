@@ -52,8 +52,8 @@ describe("Product Endpoints", () => {
 
       // Setup db.select to return different mocks for each call
       (db.select as jest.Mock)
-        .mockReturnValueOnce(mockDataQuery) // First: products query
-        .mockReturnValueOnce(mockCountQuery); // Second: count query
+        .mockReturnValueOnce(mockDataQuery) 
+        .mockReturnValueOnce(mockCountQuery); 
 
       const response = await request(app).get("/products?page=1&pageSize=10");
 

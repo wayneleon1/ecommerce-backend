@@ -2,6 +2,15 @@
 
 A comprehensive REST API for an e-commerce platform built with Node.js, TypeScript, PostgreSQL (Neon), Drizzle ORM, and Redis.
 
+## Live Deployment
+
+The API is deployed and available at: https://e-commerce-backend-xpsc.onrender.com
+
+Quick links:
+- Swagger UI: https://e-commerce-backend-xpsc.onrender.com/api-docs
+- Health check: https://e-commerce-backend-xpsc.onrender.com/health
+- Base API URL: https://e-commerce-backend-xpsc.onrender.com/health
+
 ## Features
 
 - 🔐 JWT Authentication & Authorization
@@ -24,7 +33,7 @@ A comprehensive REST API for an e-commerce platform built with Node.js, TypeScri
 - **Cache**: Redis
 - **Authentication**: JWT with bcrypt
 - **Validation**: Zod
-- **Documentation**: Swagger/OpenAPI
+- **Documentation**: Swagger
 - **Testing**: Jest + Supertest
 - **Security**: Helmet, express-rate-limit
 
@@ -49,16 +58,14 @@ PORT=3000
 NODE_ENV=development
 
 # Neon PostgreSQL Database URL
-# Format: postgresql://username:password@host/database?sslmode=require
-# Example: DATABASE_URL=postgresql://neondb_owner:your_password@ep-xxx.aws.neon.tech/neondb?sslmode=require
-DATABASE_URL=postgresql://user:password@hostname.neon.tech/dbname?sslmode=require
+DATABASE_URL=postgresql://neondb_owner:npg_LQA83INJiwFa@ep-shy-dream-a4sein6g.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
 
 # JWT Configuration
-JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+JWT_SECRET=lSlGNYL9WSmGpdEpBpx6Iw/be76oQCleHgQY4opmCfc=
 JWT_EXPIRES_IN=7d
 
 # Redis Configuration (for caching)
-REDIS_URL=redis://localhost:6379
+REDIS_URL=redis://default:GL269UFLzIF2HQDUjYAlx6e3EkHZE8iF@redis-12885.c341.af-south-1-1.ec2.redns.redis-cloud.com:12885
 
 # Rate Limiting Configuration
 RATE_LIMIT_WINDOW_MS=900000
@@ -67,7 +74,7 @@ RATE_LIMIT_MAX_REQUESTS=100
 
 4. **Setup Database:**
 
-   **Option A - Using Drizzle Push (Recommended for development):**
+   **Option A - Using Drizzle Push:**
    ```bash
    # Generate migration files
    npm run db:generate
@@ -76,7 +83,7 @@ RATE_LIMIT_MAX_REQUESTS=100
    npm run db:push
    ```
 
-   **Option B - Using Migrations (Recommended for production):**
+   **Option B - Using Migrations:**
    ```bash
    # Generate migration files
    npm run db:generate
@@ -92,7 +99,7 @@ RATE_LIMIT_MAX_REQUESTS=100
    This creates:
    - Admin user: `admin@ecommerce.com` / `Admin123!@#`
    - Test user: `user@ecommerce.com` / `User123!@#`
-   - 5 sample products
+   - 10 sample products
 
 ## Running the Application
 
@@ -123,9 +130,6 @@ npm run db:push
 
 # Run migrations (production)
 npm run db:migrate
-
-# Open Drizzle Studio (visual database browser)
-npm run db:studio
 
 # Seed database with sample data
 npm run db:seed
@@ -246,8 +250,6 @@ The project includes comprehensive unit tests for:
 - Authentication endpoints
 - Product CRUD operations
 - Order placement and retrieval
-- Middleware (auth, validation)
-- Database transactions
 
 Run tests with coverage:
 ```bash
